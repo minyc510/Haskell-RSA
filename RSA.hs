@@ -28,10 +28,15 @@ main = do
     print $ "n: " ++ show n
     print $ "d: " ++ show d
 
-    let pT = 3981498237987912347193827
-    let cT = encrypt pT e n
-    let rT = decrypt cT d n
+    --User Input
+    print $ "Input message:"
+    input <- getLine
+    let pT = read input
     print $ "plain text: " ++ show pT
+
+    --Encrypt, Decrypt
+    let cT = encrypt pT e n
+    let rT = decrypt cT d n    
     print $ "cipher text: " ++ show cT
     print $ "recovered text: " ++ show rT     
 
