@@ -11,6 +11,7 @@ main = do (cipher:privateKey:modulus:_) <- getArgs
           let d = rInteger $ privateKey
           let n = rInteger $ modulus
 
+          print $ "DECRYPTED MESSAGE:"
           print $ decrypt c d n
           
 --Decrypt c (ciphertext) given the private exponent d and modulus n 
@@ -19,4 +20,3 @@ decrypt c d n = modExp c d n
 
 rInteger :: String -> Integer
 rInteger = read 
-

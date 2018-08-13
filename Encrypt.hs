@@ -11,6 +11,7 @@ main = do (message:exponent:modulus:_) <- getArgs
           let e = rInteger $ exponent
           let n = rInteger $ modulus
 
+          print $ "ENCRYPTED MESSAGE:"
           print $ encrypt m e n
           
 --Encrypt m (plaintext) given the public exponent e and modulus n
@@ -19,4 +20,3 @@ encrypt m e n = (m^e) `mod` n
 
 rInteger :: String -> Integer
 rInteger = read 
-

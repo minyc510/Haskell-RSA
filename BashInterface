@@ -1,25 +1,25 @@
 #!/bin/bash
-#SKELETON CODE ONLY
-#NOT YET FUNCTIONAL
+
 function printHeader {
     clear
     echo "----------------------------------"
     echo "----------Haskell RSA 🔐----------"
     echo "----------------------------------"
+    echo $1
+    echo ""
 }
 
 function generateKey {
-    printHeader 
-    echo "         [Generate Key]"
-    echo ""
+    printHeader  "         [Generate Key]"
     echo "1. 512-bit"
     echo "2. 1024-bit"
     echo "3. 2048-bit"
     echo "4. 5096-bit"
+    echo "5. Cancel"
     echo ""
 
     read -p 'Select Key-Strength: ' option
-    while [[ ! $option =~ ^[1-4]{1}$ ]]; do
+    while [[ ! $option =~ ^[12345cCqQ]{1}$ ]]; do
         echo "Invalid option!"
         read -p 'Select Key-Strength: ' option
     done
@@ -30,48 +30,40 @@ function generateKey {
         ./genKey 1024
     elif [ $option = "3" ]; then
         ./genKey 2048
-    else
+    elif [ $option = "4" ]; then
         ./genKey 5096 
+    elif [[ $option =~ [5cCqQ] ]]; then
+        return [n]
     fi
 
     read -p 'Press enter to continue'
 }
 
 function encrypt {
-    printHeader 
-    echo "           [Encrypt]"
-    echo ""
-    
+    printHeader "           [Encrypt]"
     read -p 'Enter modulus: ' modulus
     read -p 'Enter public exponent: ' e
     read -p 'Enter text to be encrypted: ' message
-    #./encrypt message e modulus
+    
+    ./encrypt $message $e $modulus  #Haskell Executable
 
-    echo "Skeleton Code Only -- Encrypt not yet functional."
     read -p 'Press enter to continue'
 }
 
 function decrypt {
-    printHeader 
-    echo "           [Decrypt]"
-    echo ""
-    
+    printHeader "           [Decrypt]"    
     read -p 'Enter modulus: ' modulus
     read -p 'Enter private key: ' d
     read -p 'Enter ciphertext: ' cipher
-    #./decrypt cipher d modulus
 
-    echo "Skeleton Code Only -- Decrypt not yet functional."
+    ./decrypt $cipher $d $modulus   #Haskell Executable
+
     read -p 'Press enter to continue'
 }
 
-
-
 #Main Body of CLI
 while [ True ]; do
-    printHeader
-    echo "          [Main Menu]"
-    echo ""
+    printHeader "          [Main Menu]"
     echo "1. Generate Key"
     echo "2. Encrypt"
     echo "3. Decrypt"
@@ -79,25 +71,18 @@ while [ True ]; do
     echo ""
 
     read -p 'Select: ' option
-    while [[ ! $option =~ ^[1-4]{1}$ ]]; do
+    while [[ ! $option =~ ^[1234gGeEdDqQ]{1}$ ]]; do
         echo "Invalid option!"
         read -p 'Select: ' option
     done
 
-    if [ $option = "1" ]; then
-        generateKey;
-    elif [ $option = "2" ]; then
-        encrypt;
-    elif [ $option = "3" ]; then
-        decrypt;
-    elif [ $option = "4" ]; then
+    if [[ $option =~ [1gG] ]]; then
+        generateKey
+    elif [[ $option =~ [2eE] ]]; then
+        encrypt
+    elif [[ $option =~ [3dD] ]]; then
+        decrypt
+    elif [[ $option =~ [4qQ] ]]; then
         exit 1
     fi
-
 done
-
-
-
-
-
-
