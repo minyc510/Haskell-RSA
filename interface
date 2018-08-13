@@ -1,0 +1,103 @@
+#!/bin/bash
+#SKELETON CODE ONLY
+#NOT YET FUNCTIONAL
+function printHeader {
+    clear
+    echo "----------------------------------"
+    echo "----------Haskell RSA 🔐----------"
+    echo "----------------------------------"
+}
+
+function generateKey {
+    printHeader 
+    echo "         [Generate Key]"
+    echo ""
+    echo "1. 512-bit"
+    echo "2. 1024-bit"
+    echo "3. 2048-bit"
+    echo "4. 5096-bit"
+    echo ""
+
+    read -p 'Select Key-Strength: ' option
+    while [[ ! $option =~ ^[1-4]{1}$ ]]; do
+        echo "Invalid option!"
+        read -p 'Select Key-Strength: ' option
+    done
+
+    if [ $option = "1" ]; then
+        ./genKey 512
+    elif [ $option = "2" ]; then
+        ./genKey 1024
+    elif [ $option = "3" ]; then
+        ./genKey 2048
+    else
+        ./genKey 5096 
+    fi
+
+    read -p 'Press enter to continue'
+}
+
+function encrypt {
+    printHeader 
+    echo "           [Encrypt]"
+    echo ""
+    
+    read -p 'Enter modulus: ' modulus
+    read -p 'Enter public exponent: ' e
+    read -p 'Enter text to be encrypted: ' message
+    #./encrypt message e modulus
+
+    echo "Skeleton Code Only -- Encrypt not yet functional."
+    read -p 'Press enter to continue'
+}
+
+function decrypt {
+    printHeader 
+    echo "           [Decrypt]"
+    echo ""
+    
+    read -p 'Enter modulus: ' modulus
+    read -p 'Enter private key: ' d
+    read -p 'Enter ciphertext: ' cipher
+    #./decrypt cipher d modulus
+
+    echo "Skeleton Code Only -- Decrypt not yet functional."
+    read -p 'Press enter to continue'
+}
+
+
+
+#Main Body of CLI
+while [ True ]; do
+    printHeader
+    echo "          [Main Menu]"
+    echo ""
+    echo "1. Generate Key"
+    echo "2. Encrypt"
+    echo "3. Decrypt"
+    echo "4. Quit (or Ctrl+C)"
+    echo ""
+
+    read -p 'Select: ' option
+    while [[ ! $option =~ ^[1-4]{1}$ ]]; do
+        echo "Invalid option!"
+        read -p 'Select: ' option
+    done
+
+    if [ $option = "1" ]; then
+        generateKey;
+    elif [ $option = "2" ]; then
+        encrypt;
+    elif [ $option = "3" ]; then
+        decrypt;
+    elif [ $option = "4" ]; then
+        exit 1
+    fi
+
+done
+
+
+
+
+
+
