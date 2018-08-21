@@ -3,6 +3,10 @@ import System.Random
 import ModularOperations 
 import Primes             
 import System.Environment
+--Temp Imports
+import Data.ByteString.Base64.Lazy as B64
+import Data.ByteString.Conversion
+import Data.ByteString.Internal
 
 main :: IO()
 main = do x <- getArgs
@@ -25,22 +29,15 @@ main = do x <- getArgs
                   else (modMulInv e totient) + totient
 
           --Output
-          print $ "* Private key consists of (d,n)"
-          print $ "* Public key consists of (e,n)"
-          --print $ "------------------------------------------------------------"
-          --print $ "p: " ++ show p
-          --print $ "------------------------------------------------------------"
-          --print $ "q: " ++ show q
-          print $ "------------------------------------------------------------"
-          print $ "n: " ++ show n
-          print $ "------------------------------------------------------------"
-          print $ "e: " ++ show e
-          print $ "------------------------------------------------------------"
-          print $ "d: " ++ show d
-          --print $ "------------------------------------------------------------"
- 
-          --print $ isPrime seedP $ p
-          --print $ isPrime seedQ $ q
+          print $ "-----BEGIN RSA PUBLIC KEY-----"
+          print $ B64.encode (toByteString (n :: Integer))
+          print $ "-----END RSA PUBLIC KEY-----"
+          print $ ""
+          print $ "-----BEGIN RSA PRIVATE KEY-----"
+          print $ B64.encode (toByteString (d :: Integer))
+          print $ "-----END RSA PRIVATE KEY-----"
+
 
 rInteger :: String -> Integer
 rInteger = read 
+
