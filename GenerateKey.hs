@@ -37,7 +37,5 @@ main = do x <- getArgs
           print $ B64.encode (toByteString (d :: Integer))
           print $ "-----END RSA PRIVATE KEY-----"
 
-
 rInteger :: String -> Integer
 rInteger = read 
-

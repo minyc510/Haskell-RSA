@@ -25,13 +25,13 @@ function generateKey {
     done
 
     if [ $option = "1" ]; then
-        ./genKey 512
+        ./generateKey 512
     elif [ $option = "2" ]; then
-        ./genKey 1024
+        ./generateKey 1024
     elif [ $option = "3" ]; then
-        ./genKey 2048
+        ./generateKey 2048
     elif [ $option = "4" ]; then
-        ./genKey 5096 
+        ./generateKey 5096 
     elif [[ $option =~ [5cCqQ] ]]; then
         return [n]
     fi
@@ -42,16 +42,17 @@ function generateKey {
 function encrypt {
     printHeader "           [Encrypt]"
     read -p 'Enter modulus: ' modulus
-    read -p 'Enter public exponent: ' e
+    #read -p 'Enter public exponent: ' e
+    e=65537
     read -p 'Enter text to be encrypted: ' message
-    
+
     ./encrypt $message $e $modulus  #Haskell Executable
 
     read -p 'Press enter to continue'
 }
 
 function decrypt {
-    printHeader "           [Decrypt]"    
+    printHeader "           [Decrypt]"
     read -p 'Enter modulus: ' modulus
     read -p 'Enter private key: ' d
     read -p 'Enter ciphertext: ' cipher
