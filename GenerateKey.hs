@@ -3,8 +3,7 @@ import System.Environment                     -- getArgs
 import System.Random                          -- newStdGen
 import Primes                                     
 import ModularOperations 
-import Data.ByteString.Base64.Lazy as B64     -- Base 64
-import Data.ByteString.Conversion             -- Base 64
+import Base64Conversions as B64
 
 main :: IO()
 main = do x <- getArgs
@@ -28,12 +27,9 @@ main = do x <- getArgs
 
           --Output
           print $ "-----BEGIN RSA PUBLIC KEY-----"
-          print $ B64.encode (toByteString (n :: Integer))
+          print $ B64.fromInt n
           print $ "-----END RSA PUBLIC KEY-----"
           print $ ""
           print $ "-----BEGIN RSA PRIVATE KEY-----"
-          print $ B64.encode (toByteString (d :: Integer))
+          print $ B64.fromInt d
           print $ "-----END RSA PRIVATE KEY-----"
-
---rInteger :: String -> Integer
---rInteger = read 
