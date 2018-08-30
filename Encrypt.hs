@@ -2,8 +2,6 @@
 import System.Environment
 import ModularOperations
 import Data.ByteString.Base64
-import Data.ByteString.Conversion
-import Data.ByteString.Internal
 import Data.ByteString.Char8        --pack :: String -> ByteString
 
 main :: IO()
