@@ -1,12 +1,10 @@
 --To compile this file: `ghc -o gen GenerateKey.hs`
-import System.Random 
+import System.Environment                     -- getArgs
+import System.Random                          -- newStdGen
+import Primes                                     
 import ModularOperations 
-import Primes             
-import System.Environment
---Temp Imports
-import Data.ByteString.Base64.Lazy as B64
-import Data.ByteString.Conversion
-import Data.ByteString.Internal
+import Data.ByteString.Base64.Lazy as B64     -- Base 64
+import Data.ByteString.Conversion             -- Base 64
 
 main :: IO()
 main = do x <- getArgs
