@@ -3,7 +3,8 @@ A command-line interface for encryption, decryption, and key generation. This is
 
 For educational purposes only. Not to be used for real-world security purposes.
 
-##Installation & Use
+## Installation & Use
+
 There are only four required files for use: the bash script interface `BashInterface` and the three Haskell executables: `generateKey`, `encrypt`, and `decrypt`. 
 
 These are included in the repository, so you can simply clone and run the script like so `./BashInterface`.
