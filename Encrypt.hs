@@ -8,9 +8,9 @@ import Data.ByteString.Internal
 
 main :: IO()
 main = do (message:exponent:modulus:_) <- getArgs
-          let m = rInteger $ message
+          let m = read message
           let e = 65537
-          let n = rInteger $ modulus -- Public Key
+          let n = read modulus -- Public Key
 
           let cipherText = encrypt m e n
 
@@ -24,5 +24,5 @@ main = do (message:exponent:modulus:_) <- getArgs
 encrypt :: Integer -> Integer -> Integer -> Integer
 encrypt m e n = (m^e) `mod` n
 
-rInteger :: String -> Integer
-rInteger = read
+--rInteger :: String -> Integer
+--rInteger = read

@@ -9,7 +9,7 @@ import Data.ByteString.Conversion             -- Base 64
 main :: IO()
 main = do x <- getArgs
           --Parse Input
-          let keySize = rInteger $ head x
+          let keySize = read $ head x
           let primeSize = keySize `div` 2
 
           --Initialize Seeds
@@ -35,5 +35,5 @@ main = do x <- getArgs
           print $ B64.encode (toByteString (d :: Integer))
           print $ "-----END RSA PRIVATE KEY-----"
 
-rInteger :: String -> Integer
-rInteger = read 
+--rInteger :: String -> Integer
+--rInteger = read 

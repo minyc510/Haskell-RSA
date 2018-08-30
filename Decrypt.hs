@@ -7,9 +7,9 @@ import System.Environment
 main :: IO()
 main = do (cipher:privateKey:modulus:_) <- getArgs
           --Parse Input
-          let c = rInteger $ cipher
-          let d = rInteger $ privateKey
-          let n = rInteger $ modulus
+          let c = read cipher
+          let d = read privateKey
+          let n = read modulus
 
           print $ "DECRYPTED MESSAGE:"
           print $ decrypt c d n
@@ -18,5 +18,5 @@ main = do (cipher:privateKey:modulus:_) <- getArgs
 decrypt :: Integer -> Integer -> Integer -> Integer
 decrypt c d n = modExp c d n
 
-rInteger :: String -> Integer
-rInteger = read 
+--rInteger :: String -> Integer
+--rInteger = read 
