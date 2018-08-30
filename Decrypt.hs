@@ -1,9 +1,7 @@
 --To compile this file: `ghc -o dec Decrypt.hs`
-import System.Random 
-import ModularOperations 
-import Primes             
 import System.Environment
-
+import ModularOperations 
+            
 main :: IO()
 main = do (cipher:privateKey:modulus:_) <- getArgs
           --Parse Input
