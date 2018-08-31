@@ -12,9 +12,9 @@ main = do (message:exponent:modulus:_) <- getArgs
 
           let cipherText = encrypt m e n
 
-          print $ "-----BEGIN ENCRYPTED MESSAGE-----"
-          print $ B64.fromInt cipherText
-          print $ "-----END ENCRYPTED MESSAGE-----"
+          putStrLn $ "-----BEGIN ENCRYPTED MESSAGE-----"
+          putStrLn $ B64.fromInt cipherText
+          putStrLn $ "-----END ENCRYPTED MESSAGE-----"
 
 --Encrypt m (plaintext) given the public exponent e and modulus n
 encrypt :: Integer -> Integer -> Integer -> Integer

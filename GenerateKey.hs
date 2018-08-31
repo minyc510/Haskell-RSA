@@ -26,10 +26,14 @@ main = do x <- getArgs
                   else (modMulInv e totient) + totient
 
           --Output
-          print $ "-----BEGIN RSA PUBLIC KEY-----"
-          print $ B64.fromInt n
-          print $ "-----END RSA PUBLIC KEY-----"
-          print $ ""
-          print $ "-----BEGIN RSA PRIVATE KEY-----"
-          print $ B64.fromInt d
-          print $ "-----END RSA PRIVATE KEY-----"
+          putStrLn $ ""
+          putStrLn $ "-----BEGIN RSA PUBLIC KEY-----"
+          putStrLn $ B64.fromInt n
+          putStrLn $ "-----END RSA PUBLIC KEY-----"
+          putStrLn $ ""
+          putStrLn $ ""
+          putStrLn $ ""
+          putStrLn $ "-----BEGIN RSA PRIVATE KEY-----"
+          putStrLn $ B64.fromInt d
+          putStrLn $ "-----END RSA PRIVATE KEY-----"
+
