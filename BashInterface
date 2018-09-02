@@ -105,17 +105,39 @@ function decrypt {
     read -p 'Press enter to continue'
 }
 
+function loadNewKey {
+    printHeader "         [Load New Key]"
+    echo "1. Public Key"
+    echo "2. Private Key (requires corresponding public key)"
+    echo "3. Cancel"
+
+    read -p 'Select: ' option
+    while [[ ! $option =~ ^[123cCqQ]{1}$ ]]; do
+        echo "Invalid option!"
+        read -p 'Select Key-Strength: ' option
+    done
+
+    if [ $option = "1" ]; then
+        echo "new pub"
+    elif [ $option = "2" ]; then
+        echo "new priv"
+    elif [[ $option =~ [3cCqQ] ]]; then
+        return [n]
+    fi
+}
+
 #Main Body of CLI
 while [ True ]; do
     printHeader "          [Main Menu]"
     echo "1. Generate Key"
     echo "2. Encrypt"
     echo "3. Decrypt"
-    echo "4. Quit (or Ctrl+C)"
+    echo "4. Load New Key"
+    echo "5. Quit (or Ctrl+C)"
     echo ""
 
     read -p 'Select: ' option
-    while [[ ! $option =~ ^[1234gGeEdDqQ]{1}$ ]]; do
+    while [[ ! $option =~ ^[12345gGeEdDqQ]{1}$ ]]; do
         echo "Invalid option!"
         read -p 'Select: ' option
     done
@@ -126,7 +148,9 @@ while [ True ]; do
         encrypt
     elif [[ $option =~ [3dD] ]]; then
         decrypt
-    elif [[ $option =~ [4qQ] ]]; then
+    elif [[ $option =~ [4lL] ]]; then
+        loadNewKey
+    elif [[ $option =~ [5qQ] ]]; then
         exit 1
     fi
 done
