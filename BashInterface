@@ -68,16 +68,36 @@ function encrypt {
     modulus=$(sed '3q;d' ${fileMap[$option]})
 
     read -p 'Enter text to be encrypted: ' message
-
+  
     ./encrypt $message 65537 $modulus  #Haskell Executable
-
+     
     read -p 'Press enter to continue'
 }
 
 function decrypt {
     printHeader "           [Decrypt]"
-    read -p 'Enter public-key: ' modulus
-    read -p 'Enter private-key: ' d
+
+    #For each file in `KeyChain` place, it in the map associated with the current counter
+    declare -A FileMap
+    count=1
+    for filename in KeyChain/*; do
+      temp=${filename:9}
+      fileMap[$count]=$filename
+      echo $count". "$temp
+      ((count++))
+    done
+
+    #User input validation
+    read -p 'Select key #: ' option
+    while [ ! ${fileMap[$option]+_} ]; do
+        echo "Invalid option!"
+        read -p 'Select key: ' option
+    done
+
+    #Extract modulus and d from file
+    modulus=$(sed '3q;d' ${fileMap[$option]})
+    d=$(sed '9q;d' ${fileMap[$option]})
+
     read -p 'Enter ciphertext: ' cipher
 
     ./decrypt $cipher $d $modulus   #Haskell Executable
