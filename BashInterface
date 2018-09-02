@@ -24,37 +24,60 @@ function generateKey {
         read -p 'Select Key-Strength: ' option
     done
 
+    read -p 'Input Key-Name: ' keyName
+    echo "Generating key..."
+
     if [ $option = "1" ]; then
-        ./generateKey 512
+        ./generateKey 512 >> KeyChain/$keyName
     elif [ $option = "2" ]; then
-        ./generateKey 1024
+        ./generateKey 1024 >> KeyChain/$keyName
     elif [ $option = "3" ]; then
-        ./generateKey 2048
+        ./generateKey 2048 >> KeyChain/$keyName
     elif [ $option = "4" ]; then
-        ./generateKey 5096 
+        ./generateKey 5096 >> KeyChain/$keyName 
     elif [[ $option =~ [5cCqQ] ]]; then
         return [n]
     fi
 
+    echo "Success, new key placed in KeyChain directory."
+    echo ""
     read -p 'Press enter to continue'
 }
 
 function encrypt {
     printHeader "           [Encrypt]"
-    read -p 'Enter modulus: ' modulus
-    #read -p 'Enter public exponent: ' e
-    e=65537
+ 
+    #For each file in `KeyChain` place, it in the map associated with the current counter
+    declare -A FileMap
+    count=1
+    for filename in KeyChain/*; do
+      temp=${filename:9}
+      fileMap[$count]=$filename
+      echo $count". "$temp
+      ((count++))
+    done
+
+    #User input validation
+    read -p 'Select public-key #: ' option
+    while [ ! ${fileMap[$option]+_} ]; do
+        echo "Invalid option!"
+        read -p 'Select public-key: ' option
+    done
+
+    #Extract modulus from file
+    modulus=$(sed '3q;d' ${fileMap[$option]})
+
     read -p 'Enter text to be encrypted: ' message
 
-    ./encrypt $message $e $modulus  #Haskell Executable
+    ./encrypt $message 65537 $modulus  #Haskell Executable
 
     read -p 'Press enter to continue'
 }
 
 function decrypt {
     printHeader "           [Decrypt]"
-    read -p 'Enter modulus: ' modulus
-    read -p 'Enter private key: ' d
+    read -p 'Enter public-key: ' modulus
+    read -p 'Enter private-key: ' d
     read -p 'Enter ciphertext: ' cipher
 
     ./decrypt $cipher $d $modulus   #Haskell Executable
