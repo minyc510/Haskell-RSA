@@ -24,6 +24,10 @@ function generateKey {
         read -p 'Select Key-Strength: ' option
     done
 
+    if [[ $option =~ [5cCqQ] ]]; then
+      return [n]
+    fi
+
     read -p 'Input Key-Name: ' keyName
     echo "Generating key..."
 
@@ -35,8 +39,6 @@ function generateKey {
         ./generateKey 2048 >> KeyChain/$keyName
     elif [ $option = "4" ]; then
         ./generateKey 5096 >> KeyChain/$keyName 
-    elif [[ $option =~ [5cCqQ] ]]; then
-        return [n]
     fi
 
     echo "Success, new key placed in KeyChain directory."
