@@ -11,11 +11,7 @@ main = do (message:exponent:modulus:_) <- getArgs
 
           let cipherText = encrypt m e n
 
-          putStrLn $ ""
-          putStrLn $ "-----BEGIN ENCRYPTED MESSAGE-----"
           putStrLn $ B64.fromInt cipherText -- Converts FROM an INT to Base64
-          putStrLn $ "-----END ENCRYPTED MESSAGE-----"
-          putStrLn $ ""
 
 --Encrypt m (plaintext) given the public exponent e and modulus n
 encrypt :: Integer -> Integer -> Integer -> Integer

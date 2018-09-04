@@ -58,6 +58,10 @@ function encrypt {
       echo $count". "$temp
       ((count++))
     done
+    fileMap[$count]=Cancel
+    fileMap[c]=Cancel
+    fileMap[C]=Cancel
+    echo $count". Cancel"
 
     #User input validation
     read -p 'Select public-key #: ' option
@@ -66,13 +70,25 @@ function encrypt {
         read -p 'Select public-key: ' option
     done
 
+    if [ ${fileMap[$option]} = 'Cancel' ]; then
+        return [n]
+    fi
+
     #Extract modulus from file
     modulus=$(sed '3q;d' ${fileMap[$option]})
 
     read -p 'Enter text to be encrypted: ' message
+
+    encoding=$(./encode "$message" e)   #C++ Executable, encode the message as an Integer
   
-    ./encrypt $message 65537 $modulus  #Haskell Executable
-     
+    encryptedM=$(./encrypt $encoding 65537 $modulus)  #Haskell Executable
+    
+    echo ""
+    echo "-----BEGIN ENCRYPTED MESSAGE-----"
+    echo $encryptedM
+    echo "-----END ENCRYPTED MESSAGE-----"
+    echo ""
+
     read -p 'Press enter to continue'
 }
 
@@ -102,7 +118,14 @@ function decrypt {
 
     read -p 'Enter ciphertext: ' cipher
 
-    ./decrypt $cipher $d $modulus   #Haskell Executable
+    plainTextEncoding=$(./decrypt $cipher $d $modulus)   #Haskell Executable
+    plainText=$(./encode "$plainTextEncoding" decode)
+
+    echo ""
+    echo "-----BEGIN DECRYPTED MESSAGE-----"
+    echo $plainText
+    echo "-----END DECRYPTED MESSAGE-----"
+    echo ""
 
     read -p 'Press enter to continue'
 }
